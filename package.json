@@ -1,0 +1,17 @@
+{
+  "name": "comicposter",
+  "version": "0.1.0",
+  "description": "Solution to post webcomics to Discord via webhooks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ian Murray",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^13.2.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "rss-parser": "^3.6.2"
+  }
+}
