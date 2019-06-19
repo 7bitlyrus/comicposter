@@ -1,17 +1,17 @@
-let fs = require('fs');
-let RSSparser = require('rss-parser');
-let request = require('request-promise-native');
-let parser = new RSSparser();
+const fs = require('fs');
+const RSSparser = require('rss-parser');
+const request = require('request-promise-native');
+const parser = new RSSparser();
 
-let {log, err, avatar} = require('./util');
-let {config, comics} = require('./config/config');
+const {log, err, avatar} = require('./util');
+const {config, comics} = require('./config/config');
 
-let LAST_JSON = './config/last.json'
-let last = require(LAST_JSON);
+const LAST_JSON = './config/last.json'
+const last = require(LAST_JSON);
 
 let lastFlag = false;
 
-let poll = () => {
+const poll = () => {
     comics.forEach((comic, i) => {
         setTimeout(comic => {
             log(comic, 'Polling')
@@ -42,14 +42,14 @@ let poll = () => {
     }, config.delay*comics.length*1000)
 }
 
-let check = (comic, item) => {
-    let pubDate = new Date(item.pubDate)
+const check = (comic, item) => {
+    const pubDate = new Date(item.pubDate)
 
     if(!last[comic.info.id] || pubDate > new Date(last[comic.info.id])) {
         log(comic, `New comic published at ${pubDate.toJSON()}`)
 
         comic.parse(item).then(parsed => {
-            let data = {
+            const data = {
                 'username': comic.info.name,
                 'avatar_url': avatar(comic.info.image),
                 'embeds': [{

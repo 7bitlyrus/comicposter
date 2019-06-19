@@ -1,14 +1,14 @@
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-let info = {
+const info = {
     'id': 'savestate',
     'name': 'Savestate',
     'image': 'twitter:savestatecomic',
     'feed': 'http://savestatecomic.com/feed'
 }
 
-let parse = item => new Promise(res => {
+const parse = item => new Promise(res => {
     img = JSDOM.fragment(item.content).querySelector('img')
     desc = JSDOM.fragment(item['content:encoded']).querySelector('p')
 

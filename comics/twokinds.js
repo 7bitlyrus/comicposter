@@ -1,21 +1,21 @@
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-let info = {
+const info = {
     'id': 'twokinds',
     'name': 'Twokinds',
     'image': 'facebook:twokinds',
     'feed': 'http://twokinds.keenspot.com/feed.xml'
 }
 
-let parse = item => new Promise((res, rej) => {
+const parse = item => new Promise((res, rej) => {
     JSDOM.fromURL(item.link).then(dom => {
-        let doc = dom.window.document
+        const doc = dom.window.document
 
         res({
             'title': item.title,
             'url': item.link,
-            'image': doc.querySelector('.comic img').src
+            'image': doc.querySelector('.comic img[alt="Comic Page"]').src
         })
     }).catch(rej) 
 })

@@ -1,14 +1,14 @@
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-let info = {
+const info = {
     'id': 'foxdad',
     'name': 'Fox Dad',
     'image': 'tumblr:foxdadcomic',
     'feed': 'http://foxdad.com/rss'
 }
 
-let parse = item => new Promise((res, rej) => {
+const parse = item => new Promise((res, rej) => {
     frag = JSDOM.fragment(item.content)
 
     res({

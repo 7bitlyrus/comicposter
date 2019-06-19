@@ -1,16 +1,16 @@
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-let info = {
+const info = {
     'id': 'housepets',
     'name': 'Housepets!',
     'image': 'twitter:housepetscomic',
     'feed': 'http://housepetscomic.com/feed'
 }
 
-let parse = item => new Promise((res, rej) => {
+const parse = item => new Promise((res, rej) => {
     JSDOM.fromURL(item.link).then(dom => {
-        let doc = dom.window.document
+        const doc = dom.window.document
 
         res({
             'title': item.title,

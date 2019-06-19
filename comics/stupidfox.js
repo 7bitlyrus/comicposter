@@ -1,13 +1,13 @@
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
 
-let info = {
+const info = {
     'id': 'stupidfox',
     'name': 'StupidFox',
     'image': 'twitter:stupidfoxcomic',
 }
 
-let getItem = item => new Promise((res, rej) => {
+const getItem = item => new Promise((res, rej) => {
     JSDOM.fromURL('https://stupidfox.net/').then(dom => {
         let doc = dom.window.document
 
@@ -24,6 +24,6 @@ let getItem = item => new Promise((res, rej) => {
     }).catch(rej) 
 })
 
-let parse = item => new Promise(res => res(item))
+const parse = item => new Promise(res => res(item))
 
 module.exports = {info, parse, getItem}

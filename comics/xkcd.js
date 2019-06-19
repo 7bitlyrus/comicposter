@@ -1,12 +1,12 @@
-let request = require('request-promise-native');
+const request = require('request-promise-native');
 
-let info = {
+const info = {
     'id': 'xkcd',
     'name': 'xkcd',
     'image': 'twitter:xkcdcomic',
 }
 
-let getItem = item => new Promise((res, rej) => {
+const getItem = item => new Promise((res, rej) => {
     request('https://xkcd.com/info.0.json').then(response => {
         json = JSON.parse(response)
         res({
@@ -19,31 +19,6 @@ let getItem = item => new Promise((res, rej) => {
     }).catch(rej)
 })
 
-let parse = item => new Promise(res => res(item))
+const parse = item => new Promise(res => res(item))
 
 module.exports = {info, parse, getItem}
-
-/* Older RSS implementation:
-let jsdom = require('jsdom');
-let {JSDOM} = jsdom;
-
-let info = {
-    'id': 'xkcd',
-    'name': 'xkcd',
-    'image': 'twitter:xkcdcomic',
-    'feed': 'https://xkcd.com/rss.xml'
-}
-
-let parse = item => new Promise(res => {
-    img = JSDOM.fragment(item.content).querySelector('img')
-
-    res({
-        'title': item.title,
-        'url': item.link,
-        'footer': img.title,
-        'image': img.src
-    })
-})
-
-module.exports = {info, parse}
-*/

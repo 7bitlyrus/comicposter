@@ -1,4 +1,4 @@
-let avatar = uri => {
+const avatar = uri => {
     arr = uri.split(':', 2)
 
     switch(arr[0]) {
@@ -17,13 +17,13 @@ let avatar = uri => {
     }
 }
 
-let log = (prefix, obj, error) => {
+const log = (prefix, obj, error) => {
     pre = [`[${new Date().toJSON()}]`]
     if(prefix) pre.push(`[${typeof prefix === 'string' ? prefix : prefix.info.id}]`)
     error ? console.error(...pre, obj) : console.log(...pre, obj)
 }
 
-let err = prefix => { 
+const err = prefix => { 
     return obj => log(prefix, obj, true)
 }
 
