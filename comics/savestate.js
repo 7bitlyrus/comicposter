@@ -9,7 +9,6 @@ const info = {
 }
 
 const parse = item => new Promise(res => {
-    console.log(item)
     img = JSDOM.fragment(item.content).querySelector('img')
     desc = JSDOM.fragment(item['content:encoded']).querySelector('p:nth-of-type(2)')
 
