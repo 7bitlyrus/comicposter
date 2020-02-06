@@ -42,39 +42,35 @@ const poll = () => {
     }, config.delay*comics.length*1000)
 }
 
-const check = (comic, item) => {
+const check = async function(comic, item) {
     const pubDate = new Date(item.pubDate)
 
     if(!last[comic.info.id] || pubDate > new Date(last[comic.info.id])) {
         log(comic, `New comic published at ${pubDate.toJSON()}`)
 
-        comic.parse(item).then(parsed => {
-            const data = {
-                'username': comic.info.name,
-                'avatar_url': avatar(comic.info.image),
-                'embeds': [{
-                    'title': parsed.title,
-                    'description': parsed.desc,
-                    'url': parsed.url,
-                    'timestamp': pubDate.toJSON(),
-                    'footer': {'text': parsed.footer},
-                    'image': {'url': parsed.image},
-                    'thumbnail': {'url': parsed.thumbnail}
-                }]
-            }
+        const parsed = await comic.parse(item)
+        const avatar_url = await avatar(comic.info.image)
 
-            log(comic, `Posting new comic, ${parsed.title}`)
+        const data = {
+            'username': comic.info.name,
+            avatar_url,
+            'embeds': [{
+                'title': parsed.title,
+                'description': parsed.desc,
+                'url': parsed.url,
+                'timestamp': pubDate.toJSON(),
+                'footer': {'text': parsed.footer},
+                'image': {'url': parsed.image},
+                'thumbnail': {'url': parsed.thumbnail}
+            }]
+        }
 
-            request({
-                url: config.webhook,
-                method: 'POST',
-                json: data
-            }).then(() => {
-                log(comic,`Posted ${parsed.title}`)
-                last[comic.info.id] = pubDate
-                lastFlag = true
-            }).catch(err(comic))
-        }).catch(err(comic))
+        log(comic, `Posting new comic, ${parsed.title}`)
+
+        await request({url: config.webhook, method: 'POST', json: data})
+        log(comic,`Posted ${parsed.title}`)
+        last[comic.info.id] = pubDate
+        lastFlag = true
     } else {
         log(comic, 'No new comic')
     }
