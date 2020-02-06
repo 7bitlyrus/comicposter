@@ -3,7 +3,7 @@ const request = require('request-promise-native');
 const info = {
     'id': 'xkcd',
     'name': 'xkcd',
-    'image': 'twitter:xkcdcomic',
+    'image': 'https://i.imgur.com/y7nJZQc.png',
 }
 
 const getItem = item => new Promise((res, rej) => {
