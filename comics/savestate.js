@@ -9,14 +9,15 @@ const info = {
 }
 
 const parse = item => new Promise(res => {
+    console.log(item)
     img = JSDOM.fragment(item.content).querySelector('img')
-    desc = JSDOM.fragment(item['content:encoded']).querySelector('p')
+    desc = JSDOM.fragment(item['content:encoded']).querySelector('p:nth-of-type(2)')
 
     res({
         'title': item.title,
         'url': item.link,
         'desc': desc.textContent,
-        'image': img.src.replace('comics-rss', 'comics')
+        'image': img.src.replace('-150x150', '')
     })
 })
 
