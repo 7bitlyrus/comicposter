@@ -48,26 +48,32 @@ const check = async function(comic, item) {
     if(!last[comic.info.id] || pubDate > new Date(last[comic.info.id])) {
         log(comic, `New comic published at ${pubDate.toJSON()}`)
 
-        const parsed = await comic.parse(item)
-        const avatar_url = await avatar(comic.info.image)
+        try {
+            const parsed = await comic.parse(item)
+            const avatar_url = await avatar(comic.info.image)
 
-        const data = {
-            'username': comic.info.name,
-            avatar_url,
-            'embeds': [{
-                'title': parsed.title,
-                'description': parsed.desc,
-                'url': parsed.url,
-                'timestamp': pubDate.toJSON(),
-                'footer': {'text': parsed.footer},
-                'image': {'url': parsed.image},
-                'thumbnail': {'url': parsed.thumbnail}
-            }]
+            const data = {
+                'username': comic.info.name,
+                avatar_url,
+                'embeds': [{
+                    'title': parsed.title,
+                    'description': parsed.desc,
+                    'url': parsed.url,
+                    'timestamp': pubDate.toJSON(),
+                    'footer': {'text': parsed.footer},
+                    'image': {'url': parsed.image},
+                    'thumbnail': {'url': parsed.thumbnail}
+                }]
+            }
+
+            log(comic, `Posting new comic, ${parsed.title}`)
+
+            await request({url: config.webhook, method: 'POST', json: data})
+        } catch(e) {
+            console.warn(e)
+            return
         }
 
-        log(comic, `Posting new comic, ${parsed.title}`)
-
-        await request({url: config.webhook, method: 'POST', json: data})
         log(comic,`Posted ${parsed.title}`)
         last[comic.info.id] = pubDate
         lastFlag = true
