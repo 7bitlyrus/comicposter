@@ -46,9 +46,9 @@ const check = async function(comic, item) {
     const pubDate = new Date(item.pubDate)
 
     if(!last[comic.info.id] || pubDate > new Date(last[comic.info.id])) {
-        log(comic, `New comic published at ${pubDate.toJSON()}`)
-
         try {
+            log(comic, `New comic published at ${pubDate.toJSON()}`)
+
             const parsed = await comic.parse(item)
             const avatar_url = await avatar(comic.info.image)
 
@@ -69,14 +69,14 @@ const check = async function(comic, item) {
             log(comic, `Posting new comic, ${parsed.title}`)
 
             await request({url: config.webhook, method: 'POST', json: data})
+
+            log(comic,`Posted ${parsed.title}`)
+            last[comic.info.id] = pubDate
+            lastFlag = true
         } catch(e) {
             console.warn(e)
             return
         }
-
-        log(comic,`Posted ${parsed.title}`)
-        last[comic.info.id] = pubDate
-        lastFlag = true
     } else {
         log(comic, 'No new comic')
     }
