@@ -1,23 +1,27 @@
 # comicposter
 Solution to post webcomics to Discord via webhooks
 
-## Config
-Eventually, hopefully, a config file creation script will be written, until then you will have to create
-the config files by hand, using the following steps:
+## Creating configs
+To create the config files required to get up and running:
 
 * Create the `config` folder.
 * Create the `config/last.json` file with the contents `{}`
 * Create and modify the `config/config.js` file:
 ```js
 let config = {
-    'webhook': /*webhook url*/,
-    'interval': /*polling interval in seconds*/, 
-    'delay': /*delay between each comic's poll in seconds*/
+    'webhook': /* Discord webhook URL */,
+    'interval': /* Polling interval in seconds (e.g. 3600) */, 
+    'delay': /* Delay between each comic's poll in seconds (e.g. 10) */
 }
 
 let comics = [
-    require('../comics/<comic name>'),
-    // repeat for each comic
+    /* Repeat the following line for each comic you want to be posted.
+       See the /comics/ folder for valid comic scripts.
+       e.g:
+       require('../comics/housepets'),
+       require('../comics/xkcd')
+    */
+    require('../comics/COMIC'),
 ]
 
 module.exports = {config, comics}
