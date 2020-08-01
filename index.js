@@ -6,8 +6,7 @@ const parser = new RSSparser();
 const {log, err, avatar} = require('./util');
 const {config, comics} = require('./config/config');
 
-const LAST_JSON = './config/last.json'
-const last = require(LAST_JSON);
+const last = require('./config/last.json');
 
 let lastFlag = false;
 
@@ -33,7 +32,7 @@ const poll = () => {
             lastFlag = false;
             log(null, "Flushing last known comic data to disk")
 
-            fs.writeFile(LAST_JSON, JSON.stringify(last), 'utf8', e => {
+            fs.writeFile(`${__dirname}/config/last.json`, JSON.stringify(last), 'utf8', e => {
                 e ? err()(e) : log(null, "Last known comic data saved")
             })
         } else {
