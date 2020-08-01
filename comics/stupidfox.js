@@ -4,7 +4,7 @@ const {JSDOM} = jsdom;
 const info = {
     'id': 'stupidfox',
     'name': 'StupidFox',
-    'image': 'twitter:stupidfoxcomic',
+    'image': 'facebook:StupidFoxFan',
 }
 
 const getItem = item => new Promise((res, rej) => {

@@ -1,6 +1,3 @@
-// Public Twitter Bearer Token
-T_BEARER = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
-
 const request = require('request-promise-native');
 
 const avatar = uri => new Promise((res) => {
@@ -13,21 +10,8 @@ const avatar = uri => new Promise((res) => {
             break
 
         case 'twitter':
-            token_opts = {
-                'method': 'POST',
-                'uri': 'https://api.twitter.com/1.1/guest/activate.json',
-                'auth': {'bearer': T_BEARER}
-            }
-    
-            request(token_opts).then(t => {
-                const user_opts = {
-                    'uri': `https://api.twitter.com/1.1/users/show.json?screen_name=${arr[1]}`,
-                    'auth': {'bearer': T_BEARER},
-                    'headers': {'x-guest-token': t.guest_token}
-                }
-
-                request(user_opts).then(user => res(JSON.parse(user).profile_image_url_https))
-            })
+            console.warn(`Attempt to use removed twitter avatar resolver: ${uri}`)
+            res('https://cdn.discordapp.com/embed/avatars/4.png')
             break
 
         case 'tumblr':
@@ -37,6 +21,9 @@ const avatar = uri => new Promise((res) => {
         case 'facebook':
             res(`https://graph.facebook.com/${arr[1]}/picture?type=large`)
             break
+
+        default:
+            res('https://cdn.discordapp.com/embed/avatars/0.png')
     }
 })
 

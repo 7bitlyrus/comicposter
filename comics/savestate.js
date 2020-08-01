@@ -4,7 +4,7 @@ const {JSDOM} = jsdom;
 const info = {
     'id': 'savestate',
     'name': 'Savestate',
-    'image': 'twitter:savestatecomic',
+    'image': 'facebook:savestatecomic',
     'feed': 'http://savestatecomic.com/feed'
 }
 

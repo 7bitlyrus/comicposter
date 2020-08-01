@@ -4,7 +4,7 @@ const {JSDOM} = jsdom;
 const info = {
     'id': 'prequel',
     'name': 'Prequel',
-    'image': 'twitter:prequelcomic',
+    'image': 'https://i.imgur.com/xjymQki.png',
     'feed': 'https://prequeladventure.com/feed'
 }
 
